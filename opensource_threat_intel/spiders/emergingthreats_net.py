@@ -72,9 +72,7 @@ class Spider(CrawlSpider):
         content = response.body.split('\n')
         content_data = []
         for i in content:
-            if i == '':
-                pass
-            else:
+            if i :
                 content_data.append(i)
         for indicator in content_data:
             item = self.format_data(indicator, tag)

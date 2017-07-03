@@ -8,7 +8,7 @@ from scrapy.spiders import CrawlSpider, Rule
 
 from ..items import OpensourceThreatIntelItem
 
-DPATH = '../data_bak/emergingthreat_net'
+DPATH = '../data_bak/blocklist_de'
 
 
 class Spider(CrawlSpider):
