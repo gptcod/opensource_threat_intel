@@ -18,7 +18,11 @@ class Spider(CrawlSpider):
     ]
     start_urls = [
         # sslbl.abuse.ch
-        'https://sslbl.abuse.ch/blacklist/sslblacklist.csv',
+        # 'https://sslbl.abuse.ch/blacklist/dyre_sslblacklist.csv',
+        # 'https://sslbl.abuse.ch/blacklist/sslblacklist.csv',
+        'https://sslbl.abuse.ch/blacklist/sslipblacklist.csv',
+        'https://sslbl.abuse.ch/blacklist/sslipblacklist_aggressive.csv',
+        'https://sslbl.abuse.ch/blacklist/dyre_sslipblacklist.csv',
     ]
 
     def start_requests(self):
@@ -32,7 +36,6 @@ class Spider(CrawlSpider):
         filename = url.split("/")[-1]
         bak_file = '%s/%s%s%s' % (DPATH, site, time.strftime('%Y-%m-%d', time.localtime(time.time())), filename)
         cmd = " wget  -c '%s'  -O %s" % (url, bak_file)
-        print cmd
         os.system(cmd)
         return bak_file
 
@@ -40,28 +43,47 @@ class Spider(CrawlSpider):
     def reduce_sslbl(self, response):
         file_path = self.bak(response.url, 'sslbl')
         if response.url.find('sslblacklist') >= 0:
-            self.parse_sha1(file_path)
+            with open(file_path, 'r') as f:
+                for line in f:
+                    if not line.startswith('#'):
+                        yield self.parse_sha1(line.strip())
+        elif response.url.find('sslipblacklist') >=0:
+            with open(file_path,'r') as f:
+                for line in f:
+                    if not line.startswith('#'):
+                        yield self.parse_ip(line.strip())
 
-    @staticmethod
-    def parse_sha1(file_path):
-        print  file_path
+    def parse_ip(self, line):
+        tag = 7
+        data_type = 0
+        item = OpensourceThreatIntelItem()
+        indicator = line.split(',')[0]
+        now_time = time.strftime('%Y-%m-%dT%H:%M:%S', time.localtime(time.time()))
+        item['indicator'] = indicator
+        item['data_type'] = data_type
+        item['tag'] = tag
+        item['alive'] = True
+        item['description'] = line.split(',')[2]
+        item['confidence'] = 9
+        item['source'] = 'sslbl.abuse.ch'
+        item['updated_time'] = now_time
+        item['created_time'] = now_time
+        return item
+
+    def parse_sha1(self, line):
         tag = 7
         data_type = 5
-        with open(file_path, 'r') as f:
-            for line in f:
-                print line
-                if not line.startswith('#'):
-                    item = OpensourceThreatIntelItem()
-                    indicator = line.split(',')[1]
-                    alive_time = line.split(',')[0].replace(' ', 'T')
-                    now_time = time.strftime('%Y-%m-%dT%H:%M:%S', time.localtime(time.time()))
-                    item['indicator'] = indicator
-                    item['data_type'] = data_type
-                    item['tag'] = tag
-                    item['alive'] = True
-                    item['description'] = line.split(',')[2]
-                    item['confidence'] = 9
-                    item['source'] = 'sslbl.abuse.ch'
-                    item['updated_time'] = alive_time
-                    item['created_time'] = now_time
-                    yield item
+        item = OpensourceThreatIntelItem()
+        indicator = line.split(',')[1]
+        alive_time = line.split(',')[0].replace(' ', 'T')
+        now_time = time.strftime('%Y-%m-%dT%H:%M:%S', time.localtime(time.time()))
+        item['indicator'] = indicator
+        item['data_type'] = data_type
+        item['tag'] = tag
+        item['alive'] = True
+        item['description'] = line.split(',')[2]
+        item['confidence'] = 9
+        item['source'] = 'sslbl.abuse.ch'
+        item['updated_time'] = alive_time
+        item['created_time'] = now_time
+        return item
