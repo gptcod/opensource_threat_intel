@@ -18,11 +18,12 @@ class Spider(CrawlSpider):
     ]
     start_urls = [
         # sslbl.abuse.ch
-        # 'https://sslbl.abuse.ch/blacklist/dyre_sslblacklist.csv',
-        # 'https://sslbl.abuse.ch/blacklist/sslblacklist.csv',
+        'https://sslbl.abuse.ch/blacklist/dyre_sslblacklist.csv',
+        'https://sslbl.abuse.ch/blacklist/sslblacklist.csv',
         'https://sslbl.abuse.ch/blacklist/sslipblacklist.csv',
         'https://sslbl.abuse.ch/blacklist/sslipblacklist_aggressive.csv',
         'https://sslbl.abuse.ch/blacklist/dyre_sslipblacklist.csv',
+        # zeustracker.abuse.ch
     ]
 
     def start_requests(self):
