@@ -35,7 +35,7 @@ class MedisumSpider(CrawlSpider):
     ]
 
     def __init__(self):
-        self.bak_path = '../data_bak/cyren/'+ time.strftime('%Y-%m-%d', time.localtime(time.time()))
+        self.bak_path = '../data_bak/cyren/'+ self.today_time()+'/'
         if not os.path.exists(self.bak_path):
             os.system('mkdir -p %s ' % self.bak_path)
 
@@ -48,8 +48,8 @@ class MedisumSpider(CrawlSpider):
         # get response with all files
         files = json.loads(response.body)
         # file filter not check md5
-        files = filter(lambda dic: dic['filename'].endswith('gz') and dic['filename'].find(self.today_time()) >= 0,
-                       files)
+        files = filter(lambda dic: dic['filename'].endswith('gz')
+                       and dic['filename'].find(self.today_time()) >= 0,files)
         for f in files:
             path = os.path.join(response.url, f['filename'])
             filename = self.bak_path + f['filename']
@@ -61,8 +61,10 @@ class MedisumSpider(CrawlSpider):
             yield request
 
     def today_time(self):
-        return time.strftime('%y%m%d', time.localtime(time.time()))
+        return '170711'
+        # return time.strftime('%y%m%d', time.localtime(time.time()))
 
+    # 解压gz文件
     def un_gz(self,file_name):
         """ungz zip file"""
         f_name = file_name.replace(".gz", "")
@@ -86,6 +88,7 @@ class MedisumSpider(CrawlSpider):
         self.logger.info('download file  %s ', filename)
         ungz_file = self.un_gz(filename)
         with open(ungz_file, 'r') as ungz:
+            os.remove(ungz_file)
             for line in ungz:
                 item = OpensourceThreatIntelItem()
                 indicator = self.ip_format(line.split(',')[1])

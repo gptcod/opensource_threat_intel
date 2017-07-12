@@ -24,14 +24,35 @@ class Spider(CrawlSpider):
         'https://sslbl.abuse.ch/blacklist/sslipblacklist_aggressive.csv',
         'https://sslbl.abuse.ch/blacklist/dyre_sslipblacklist.csv',
         # zeustracker.abuse.ch
+        'https://zeustracker.abuse.ch/blocklist.php?download=baddomains',
+        'https://zeustracker.abuse.ch/blocklist.php?download=domainblocklist',
+        'https://zeustracker.abuse.ch/blocklist.php?download=badips',
+        'http://zeustracker.abuse.ch/blocklist.php?download=ipblocklist',
+        # feodotracker.abuse.ch
+        'https://feodotracker.abuse.ch/blocklist/?download=ipblocklist',
+        'https://feodotracker.abuse.ch/blocklist/?download=domainblocklist',
+        #ransomware.abuse.ch
+        'http://ransomwaretracker.abuse.ch/downloads/RW_DOMBL.txt',
+        'http://ransomwaretracker.abuse.ch/downloads/RW_URLBL.txt',
+        'http://ransomwaretracker.abuse.ch/downloads/RW_IPBL.txt',
+
     ]
 
     def start_requests(self):
         for url in self.start_urls:
             if url.find('sslbl') >= 0:
                 yield Request(url, callback=self.reduce_sslbl)
+            elif url.find('zeustracker') >= 0:
+                yield Request(url, callback=self.reduce_zeustracker)
+            elif url.find('feodotracker')>=0:
+                yield Request(url, callback=self.reduce_feodotracker)
+            elif url.find('ransomwaretracker')>=0:
+                yield Request(url, callback=self.reduce_ransomwaretracker)
+            else:
+                pass
 
-    def bak(self, url, site):
+
+    def sslbl_bak(self, url, site):
         if not os.path.exists(DPATH):
             os.system('mkdir -p %s ' % DPATH)
         filename = url.split("/")[-1]
@@ -42,7 +63,7 @@ class Spider(CrawlSpider):
 
     # sslbl feed 解析
     def reduce_sslbl(self, response):
-        file_path = self.bak(response.url, 'sslbl')
+        file_path = self.sslbl_bak(response.url, 'sslbl')
         if response.url.find('sslblacklist') >= 0:
             with open(file_path, 'r') as f:
                 for line in f:
@@ -54,8 +75,87 @@ class Spider(CrawlSpider):
                     if not line.startswith('#'):
                         yield self.parse_ip(line.strip())
 
+
+    # feed 解析
+    def reduce_zeustracker(self, response):
+        url = response.url
+        if url.find('domain')>=0 :
+            data_type = 1
+            tags = 10
+        elif url.find('ip')>=0 :
+            data_type = 0
+            tags = 10
+        elif url.find('compromised')>=0 :
+            data_type = 2
+            tags = 6
+        for line in response.body.strip().split('\n'):
+            if not line.startswith('#'):
+                item = OpensourceThreatIntelItem()
+                now_time = time.strftime('%Y-%m-%dT%H:%M:%S', time.localtime(time.time()))
+                item['indicator'] = line
+                item['data_type'] = data_type
+                item['tag'] = tags
+                item['alive'] = False
+                item['description'] = 'ZeuS'
+                item['confidence'] = 9
+                item['source'] = 'zeustracker.abuse.ch'
+                item['updated_time'] = 'none'
+                item['created_time'] = now_time
+                yield item
+
+    # feed 解析
+    def reduce_feodotracker(self, response):
+        url = response.url
+        if url.find('domain')>=0 :
+            data_type = 1
+            tags = 10
+        elif url.find('ip')>=0 :
+            data_type = 0
+            tags = 10
+        for line in response.body.strip().split('\n'):
+            if not line.startswith('#'):
+                item = OpensourceThreatIntelItem()
+                now_time = time.strftime('%Y-%m-%dT%H:%M:%S', time.localtime(time.time()))
+                item['indicator'] = line
+                item['data_type'] = data_type
+                item['tag'] = tags
+                item['alive'] = True
+                item['description'] = 'feodotracker'
+                item['confidence'] = 8
+                item['source'] = 'feodotracker.abuse.ch'
+                item['updated_time'] = now_time
+                item['created_time'] = now_time
+                yield item
+
+
+    # feed 解析
+    def reduce_ransomwaretracker(self, response):
+        url = response.url
+        if url.find('DOM')>=0 :
+            data_type = 1
+            tags = 10
+        elif url.find('IP')>=0 :
+            data_type = 0
+            tags = 10
+        elif url.find('URL')>=0 :
+            data_type = 2
+            tags = 10
+        for line in response.body.strip().split('\n'):
+            if not line.startswith('#'):
+                item = OpensourceThreatIntelItem()
+                now_time = time.strftime('%Y-%m-%dT%H:%M:%S', time.localtime(time.time()))
+                item['indicator'] = line
+                item['data_type'] = data_type
+                item['tag'] = tags
+                item['alive'] = True
+                item['description'] = 'ransomware'
+                item['confidence'] = 8
+                item['source'] = 'ransomware.abuse.ch'
+                item['updated_time'] = now_time
+                item['created_time'] = now_time
+                yield item
     def parse_ip(self, line):
-        tag = 7
+        tag = 10
         data_type = 0
         item = OpensourceThreatIntelItem()
         indicator = line.split(',')[0]
@@ -72,7 +172,7 @@ class Spider(CrawlSpider):
         return item
 
     def parse_sha1(self, line):
-        tag = 7
+        tag = 10
         data_type = 5
         item = OpensourceThreatIntelItem()
         indicator = line.split(',')[1]
