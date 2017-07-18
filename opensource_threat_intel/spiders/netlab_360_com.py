@@ -79,7 +79,7 @@ class Spider(CrawlSpider):
                     item['tag'] = tag
                     item['alive'] = True
                     item['description'] = 'none'
-                    item['confidence'] = 7
+                    item['confidence'] = 10
                     item['source'] = 'netlab.360.com'
                     item['updated_time'] = alive_time
                     item['created_time'] = now_time
@@ -102,7 +102,7 @@ class Spider(CrawlSpider):
                     item['tag'] = tag
                     item['alive'] = False
                     item['description'] = 'none'
-                    item['confidence'] = 7
+                    item['confidence'] = 10
                     item['source'] = 'netlab.360.com'
                     item['updated_time'] = 'none'
                     item['created_time'] = now_time

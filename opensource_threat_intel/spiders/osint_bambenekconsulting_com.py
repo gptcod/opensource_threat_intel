@@ -60,7 +60,7 @@ class Spider(CrawlSpider):
 
     # url ip  c&c feed 解析
     def parse_indicator(self, response):
-        tag = 7
+        tag = 10
         data_type = self.get_data_type(response.url)
         self.bak(response)
         lines = response.body.split('\n')

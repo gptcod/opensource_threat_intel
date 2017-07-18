@@ -9,6 +9,9 @@ from scrapy.spiders import CrawlSpider
 
 from ..items import OpensourceThreatIntelItem
 
+bak_path = '../data_bak/cyren/'+ time.strftime('%y%m%d', time.localtime(time.time()))+'/'
+if not os.path.exists(bak_path):
+    os.system('mkdir -p %s ' % bak_path)
 
 class FtpMetaRequest(Request):
     # add user with password to ftp meta request
@@ -18,6 +21,8 @@ class FtpMetaRequest(Request):
         super(FtpMetaRequest, self).__init__(args, **kwargs)
         self.meta.update(self.user_meta)
 
+    def today_time(self):
+        return time.strftime('%y%m%d', time.localtime(time.time()))
 
 class FileFtpRequest(FtpMetaRequest):
     pass
@@ -34,11 +39,6 @@ class MedisumSpider(CrawlSpider):
         "ftp.ctmail.com"
     ]
 
-    def __init__(self):
-        self.bak_path = '../data_bak/cyren/'+ self.today_time()+'/'
-        if not os.path.exists(self.bak_path):
-            os.system('mkdir -p %s ' % self.bak_path)
-
     def start_requests(self):
         # start request to get all files
         yield ListFtpRequest("ftp://ftp.ctmail.com/ZombieIntelligence/delta/")
@@ -52,7 +52,7 @@ class MedisumSpider(CrawlSpider):
                        and dic['filename'].find(self.today_time()) >= 0,files)
         for f in files:
             path = os.path.join(response.url, f['filename'])
-            filename = self.bak_path + f['filename']
+            filename = bak_path + f['filename']
             if os.path.exists(filename):
                 self.logger.info('file %s exist ..',f['filename'])
                 continue
@@ -60,10 +60,9 @@ class MedisumSpider(CrawlSpider):
             request = FileFtpRequest(path,callback=self.parse_item)
             yield request
 
-    def today_time(self):
-        return '170711'
-        # return time.strftime('%y%m%d', time.localtime(time.time()))
 
+    def today_time(self):
+        return time.strftime('%y%m%d', time.localtime(time.time()))
     # 解压gz文件
     def un_gz(self,file_name):
         """ungz zip file"""
@@ -82,7 +81,7 @@ class MedisumSpider(CrawlSpider):
         return tostr(ip_int)
 
     def parse_item(self, response):
-        filename = self.bak_path + response.url.split('/')[-1]
+        filename = bak_path + response.url.split('/')[-1]
         print filename
         open(filename,'wb').write(response.body)
         self.logger.info('download file  %s ', filename)

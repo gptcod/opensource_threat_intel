@@ -43,7 +43,7 @@ class Spider(CrawlSpider):
         item['tag'] = tag
         item['alive'] = True
         item['description'] = 'none'
-        item['confidence'] = 7
+        item['confidence'] = 10
         item['source'] = 'blocklist.de'
         item['updated_time'] = now_time
         item['created_time'] = now_time

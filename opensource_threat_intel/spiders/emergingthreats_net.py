@@ -47,7 +47,7 @@ class Spider(CrawlSpider):
         item['data_type'] = 0
         item['tag'] = tag
         item['alive'] = False
-        item['confidence'] = 7
+        item['confidence'] = 10
         item['source'] = 'emergingthreats.net'
         item['updated_time'] = 'none'
         item['created_time'] = now_time
@@ -59,7 +59,7 @@ class Spider(CrawlSpider):
         if url.find("compromised") >= 0:
             return  6
         elif url.find("botcc") >= 0:
-            return  7
+            return  10
         elif url.find("tor") >= 0:
             return  9
         else:
