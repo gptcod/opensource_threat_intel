@@ -1,0 +1,42 @@
+2017-09-11 17:43:45 [scrapy] INFO: Scrapy 1.2.2 started (bot: opensource_threat_intel)
+2017-09-11 17:43:45 [scrapy] INFO: Overridden settings: {'DOWNLOAD_TIMEOUT': 3000, 'NEWSPIDER_MODULE': 'opensource_threat_intel.spiders', 'SPIDER_MODULES': ['opensource_threat_intel.spiders'], 'CONCURRENT_REQUESTS': 32, 'BOT_NAME': 'opensource_threat_intel'}
+2017-09-11 17:43:45 [scrapy] INFO: Enabled extensions:
+['scrapy.extensions.logstats.LogStats',
+ 'scrapy.extensions.telnet.TelnetConsole',
+ 'scrapy.extensions.corestats.CoreStats']
+2017-09-11 17:43:45 [scrapy] INFO: Enabled downloader middlewares:
+['opensource_threat_intel.middlewares.RandomUserAgentMiddleware',
+ 'scrapy.downloadermiddlewares.httpauth.HttpAuthMiddleware',
+ 'scrapy.downloadermiddlewares.downloadtimeout.DownloadTimeoutMiddleware',
+ 'scrapy.downloadermiddlewares.defaultheaders.DefaultHeadersMiddleware',
+ 'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware',
+ 'scrapy.downloadermiddlewares.retry.RetryMiddleware',
+ 'scrapy.downloadermiddlewares.redirect.MetaRefreshMiddleware',
+ 'scrapy.downloadermiddlewares.httpcompression.HttpCompressionMiddleware',
+ 'scrapy.downloadermiddlewares.redirect.RedirectMiddleware',
+ 'scrapy.downloadermiddlewares.cookies.CookiesMiddleware',
+ 'scrapy.downloadermiddlewares.chunked.ChunkedTransferMiddleware',
+ 'scrapy.downloadermiddlewares.stats.DownloaderStats']
+2017-09-11 17:43:45 [scrapy] INFO: Enabled spider middlewares:
+['scrapy.spidermiddlewares.httperror.HttpErrorMiddleware',
+ 'scrapy.spidermiddlewares.offsite.OffsiteMiddleware',
+ 'scrapy.spidermiddlewares.referer.RefererMiddleware',
+ 'scrapy.spidermiddlewares.urllength.UrlLengthMiddleware',
+ 'scrapy.spidermiddlewares.depth.DepthMiddleware']
+2017-09-11 17:43:45 [scrapy] INFO: Enabled item pipelines:
+['opensource_threat_intel.pipelines.JsonWithEncodingPipeline']
+2017-09-11 17:43:45 [scrapy] INFO: Spider opened
+2017-09-11 17:43:45 [scrapy] INFO: Crawled 0 pages (at 0 pages/min), scraped 0 items (at 0 items/min)
+2017-09-11 17:43:45 [scrapy] DEBUG: Telnet console listening on 127.0.0.1:6023
+2017-09-11 17:43:47 [scrapy] DEBUG: Crawled (200) <GET http://www.phishtank.com/phish_search.php> (referer: None)
+2017-09-11 17:43:48 [scrapy] DEBUG: Crawled (200) <GET http://www.phishtank.com/> (referer: None)
+2017-09-11 17:43:49 [scrapy] DEBUG: Filtered duplicate request: <GET http://www.phishtank.com/phish_detail.php?phish_id=5213670> - no more duplicates will be shown (see DUPEFILTER_DEBUG to show all duplicates)
+2017-09-11 17:43:52 [scrapy] DEBUG: Crawled (200) <GET http://www.phishtank.com/phish_search.php?page=1> (referer: http://www.phishtank.com/phish_search.php)
+2017-09-11 17:43:53 [scrapy] DEBUG: Crawled (200) <GET http://www.phishtank.com/phish_detail.php?phish_id=5213677> (referer: http://www.phishtank.com/phish_search.php)
+2017-09-11 17:43:56 [scrapy] DEBUG: Crawled (200) <GET http://www.phishtank.com/phish_detail.php?phish_id=5213662> (referer: http://www.phishtank.com/phish_search.php)
+2017-09-11 17:43:58 [scrapy] DEBUG: Crawled (200) <GET http://www.phishtank.com/phish_detail.php?phish_id=5213663> (referer: http://www.phishtank.com/phish_search.php)
+2017-09-11 17:44:00 [scrapy] DEBUG: Crawled (200) <GET http://www.phishtank.com/phish_detail.php?phish_id=5213664> (referer: http://www.phishtank.com/phish_search.php)
+2017-09-11 17:44:02 [scrapy] DEBUG: Crawled (200) <GET http://www.phishtank.com/phish_detail.php?phish_id=5213665> (referer: http://www.phishtank.com/phish_search.php)
+2017-09-11 17:44:05 [scrapy] DEBUG: Crawled (200) <GET http://www.phishtank.com/phish_detail.php?phish_id=5213666> (referer: http://www.phishtank.com/phish_search.php)
+2017-09-11 17:44:07 [scrapy] DEBUG: Crawled (200) <GET http://www.phishtank.com/phish_detail.php?phish_id=5213667> (referer: http://www.phishtank.com/phish_search.php)
+2017-09-11 17:44:09 [scrapy] DEBUG: Crawled (200) <GET http://www.phishtank.com/phish_detail.php?phish_id=5213668> (referer: http://www.phishtank.com/phish_search.php)
