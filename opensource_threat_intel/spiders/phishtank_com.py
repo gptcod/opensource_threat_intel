@@ -16,15 +16,8 @@ class Spider(CrawlSpider):
         # },
         "DOWNLOAD_DELAY" :2
 
+    
     }
-    # start_urls = [
-    #     'http://www.phishtank.com/',
-    # ]
-    #
-    # rules = (
-    #     Rule(LinkExtractor(allow='/phish_search.php\?page=\d+'), follow=True),
-    #     Rule(LinkExtractor(allow='/phish_detail.php\?phish_id=\d+'), callback='parse_detail'),
-    # )
     start_urls = [
         'http://www.phishtank.com/phish_search.php',
         'http://www.phishtank.com/',
@@ -37,10 +30,8 @@ class Spider(CrawlSpider):
     )
 
 
-def parse_detail(self, response):
-    url = response.xpath("//*[@id='widecol']/div/div[3]/span/b/text()").extract()[0] + "\n"
-    open("data_url","w+").write(url)
-    # sel = Selector(response)
-    # item = OpensourceThreatIntelItem()
-    # item['indicator'] = sel.xpath('//div/span[@style="word-wrap:break-word;"]/b/text()').extract()
-    # yield item
+    def parse_detail(self, response):
+            sel = Selector(response)
+            item = OpensourceThreatIntelItem()
+            item['indicator'] = sel.xpath('//div/span[@style="word-wrap:break-word;"]/b/text()').extract()
+            yield item
