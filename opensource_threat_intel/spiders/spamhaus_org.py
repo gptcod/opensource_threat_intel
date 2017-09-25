@@ -36,10 +36,10 @@ class Spider(CrawlSpider):
                         item['indicator'] = str(ip)
                         item['data_type'] = data_type
                         item['tag'] = tag
-                        item['alive'] = True
+                        item['alive'] = False
                         item['description'] = 'none'
                         item['confidence'] = 9
-                        item['source'] = 'spamhaus.org'
-                        item['updated_time'] = now_time
+                        item['source'] = 'www.spamhaus.org'
+                        item['updated_time'] = 'none'
                         item['created_time'] = now_time
                         yield item

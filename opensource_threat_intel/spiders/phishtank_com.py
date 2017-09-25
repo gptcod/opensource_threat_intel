@@ -6,7 +6,7 @@ from scrapy.linkextractors import LinkExtractor
 from scrapy.spiders import CrawlSpider, Rule
 
 from ..items import OpensourceThreatIntelItem
-
+import time
 
 class Spider(CrawlSpider):
     name = 'phishtank_com'
@@ -14,7 +14,7 @@ class Spider(CrawlSpider):
         # "DOWNLOADER_MIDDLEWARES": {
         #     'opensource_threat_intel.middlewares.RandomProxyMiddleware': 1
         # },
-        "DOWNLOAD_DELAY" :2
+        "DOWNLOAD_DELAY" :0.5
 
     
     }
@@ -31,7 +31,50 @@ class Spider(CrawlSpider):
 
 
     def parse_detail(self, response):
+
+   # url = response.xpath("//*[@id='widecol']/div/div[3]/span/b/text()").extract()[0] + "\n"
+   # open("data_url","w+").write(url)
+            tag = 8
+            data_type = 2
             sel = Selector(response)
+            #content = response.body
+            #content_list = content.split(' ')
+            content = sel.xpath('//div[@class="url"]/span[@class="small"]/text()')[0].extract().strip()
+            content_list = content.split(' ')
+            month = {
+                'Jan': '01',
+                'Feb': '02',
+                'Mar': '03',
+                'Apr': '04',
+                'May': '05',
+                'Jun': '06',
+                'Jul': '07',
+                'Aug': '08',
+                'Sep': '09',
+                'Oct': '10',
+                'Nov': '11',
+                'Dec': '12',
+            }
+            #content_data = []
+            #for i in range(0,len(content_list) - 1):
+                #dic = {}
+                #dic_time = content_list[i+2].split()
+                #dic_time = content[i+2].split(' ')
+            alive_time = content_list[3] + '-' + month[content_list[1]] + '-' + content_list[2].replace('st','') + 'T' + content_list[4].zfill(5) + ':00'
+                #dic['updated_time'] = updated_time
+                #content_data.append(dic)
+            #for dic in content_data:
             item = OpensourceThreatIntelItem()
-            item['indicator'] = sel.xpath('//div/span[@style="word-wrap:break-word;"]/b/text()').extract()
+            url = sel.xpath('//div/span[@style="word-wrap:break-word;"]/b/text()')[0].extract()
+                #updated_time = sel.xpath('//div[@class="url"]/span[@class="small"]/text()')[0].extract().strip()
+            now_time = time.strftime('%Y-%m-%dT%H:%M:%S', time.localtime(time.time()))
+            item['indicator'] = url
+            item['data_type'] = data_type
+            item['tag'] = tag
+            item['alive'] = True
+            item['description'] = 'none'
+            item['confidence'] = 9
+            item['source'] = 'phishtank.com'
+            item['updated_time'] = alive_time
+            item['created_time'] = now_time
             yield item

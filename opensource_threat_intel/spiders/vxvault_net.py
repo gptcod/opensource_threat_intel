@@ -34,7 +34,7 @@ class Spider(CrawlSpider):
                     item['alive'] = False
                     item['description'] = 'none'
                     item['confidence'] = 10
-                    item['source'] = 'vxvault.net'
+                    item['source'] = 'phishtank.com'
                     item['updated_time'] = 'none'
                     item['created_time'] = now_time
                     yield item
