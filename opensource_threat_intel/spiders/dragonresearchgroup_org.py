@@ -13,13 +13,11 @@ class Spider(CrawlSpider):
     #allowed_domains = ["dragonresearchgroup.org"]
     start_urls = [
 	    'http://dragonresearchgroup.org/insight',
-        #'http://dragonresearchgroup.org/insight/http-report.txt',
 	]
     rules = (
         Rule(LinkExtractor(allow='/sshpwauth.txt'),callback='parse_1',follow=True),
         Rule(LinkExtractor(allow='/http-report.txt'), callback='parse_2', follow=True),
     )
-#    rules = (Rule(LinkExtractor(allow()),callback='parse_1',follow=True),)
     def start_requests(self):
         for url in self.start_urls:
             yield Request(url)
@@ -27,17 +25,13 @@ class Spider(CrawlSpider):
     def parse_1(self, response):
         tag = 5
         data_type = 0
-       # self.bak(response)
         lines = response.body.split('\n')
         for line in lines:
             if not str.startswith(line, '#'):
                 if line:
                     item = OpensourceThreatIntelItem()
-                   # indicator = indicator
                     ip = line.split('|')[2]
-                   # x=time.localtime()
                     alive_time = line.split('|')[3]
-                   # alive_time = time.strftime('%Y-%m-%dT%H:%M:%S', x)
                     now_time = time.strftime('%Y-%m-%dT%H:%M:%S', time.localtime(time.time()))
                     item['indicator'] = ip
                     item['data_type'] = data_type
