@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-   
+# -*- coding: utf-8 -*-
 # Created by manue1 on 2017/8/7
 import os
 import time
@@ -12,7 +12,7 @@ DPATH = '../data_bak/openphish_com'
 
 
 class Spider(CrawlSpider):
-    name = "openphish.com"
+    name = "016_openphish.com"
     start_urls = [
         "https://openphish.com/feed.txt",
     ]

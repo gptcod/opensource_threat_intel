@@ -11,7 +11,7 @@ DPATH = '../data_bak/netlab_360_com'
 
 
 class Spider(CrawlSpider):
-    name = 'netlab_360_com'
+    name = '014_netlab_360_com'
 
     allowed_domains = [
         "netlab.360.com"

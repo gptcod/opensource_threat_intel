@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-   
+# -*- coding: utf-8 -*-
 # Created by manue1 on 2017/8/7
 import time
 
@@ -11,7 +11,7 @@ DPATH = '../data_bak/nothink_org'
 
 
 class Spider(CrawlSpider):
-    name = 'nothink.org'
+    name = '015_nothink.org'
     start_urls = [
         "http://www.nothink.org/blacklist/blacklist_ssh_day.txt",
     ]

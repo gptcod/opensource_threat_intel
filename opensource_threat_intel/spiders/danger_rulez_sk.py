@@ -1,12 +1,12 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-   
+# -*- coding: utf-8 -*-
 # Created by manue1 on 2017/7/25
 import time
 from scrapy.spiders import CrawlSpider
 from ..items import OpensourceThreatIntelItem
 DPATH = '../data_bak/public_dns_info'
 class Spider(CrawlSpider):
-    name = 'danger.rulez.sk'
+    name = '009_danger.rulez.sk'
     start_urls = [
         'http://danger.rulez.sk/projects/bruteforceblocker/blist.php',
     ]

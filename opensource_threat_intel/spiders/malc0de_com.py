@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-   
+# -*- coding: utf-8 -*-
 # Created by manue1 on 2017/8/7
 import os
 import re
@@ -11,7 +11,7 @@ DPATH = '../data_bak/malc0de_com'
 
 
 class Spider(CrawlSpider):
-    name = 'malc0de.com'
+    name = '013_malc0de.com'
     allowed_domains = [
         "malc0de.com"
     ]

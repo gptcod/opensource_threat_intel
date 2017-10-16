@@ -9,7 +9,7 @@ DPATH = '../data_bak/antispam_imp_ch'
 
 
 class Antispam_Spider(scrapy.Spider):
-    name = 'antispam.imp.ch'
+    name = '004_antispam.imp.ch'
     start_urls = ['http://antispam.imp.ch/spamlist']
 
     def bak(self, response):

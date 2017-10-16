@@ -9,7 +9,7 @@ import time
 from IPy import IP
 
 class Spider(CrawlSpider):
-    name = "dragonresearchgroup.org"
+    name = "011_dragonresearchgroup.org"
     #allowed_domains = ["dragonresearchgroup.org"]
     start_urls = [
 	    'http://dragonresearchgroup.org/insight',
@@ -21,7 +21,7 @@ class Spider(CrawlSpider):
     def start_requests(self):
         for url in self.start_urls:
             yield Request(url)
-            
+
     def parse_1(self, response):
         tag = 5
         data_type = 0

@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-   
+# -*- coding: utf-8 -*-
 # Created by manue1 on 2017/7/14
 import os
 import time
@@ -12,7 +12,7 @@ DPATH = '../data_bak/alienvault_com'
 
 
 class Spider(CrawlSpider):
-    name = 'alienvault.com'
+    name = '003_alienvault.com'
 
     start_urls = [
         'https://reputation.alienvault.com/reputation.data',

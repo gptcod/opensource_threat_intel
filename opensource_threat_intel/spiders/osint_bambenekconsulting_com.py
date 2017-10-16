@@ -11,7 +11,7 @@ DPATH = '../data_bak/osint_bambenekconsulting_com'
 
 
 class Spider(CrawlSpider):
-    name = 'osint_bambenekconsulting_com'
+    name = '017_osint_bambenekconsulting_com'
 
     start_urls = [
         'http://osint.bambenekconsulting.com/feeds/',

@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-   
+# -*- coding: utf-8 -*-
 # Created by manue1 on 2017/7/25
 import time
 import json
@@ -7,7 +7,7 @@ from scrapy.spiders import CrawlSpider
 from ..items import OpensourceThreatIntelItem
 DPATH = '../data_bak/csirtg_io'
 class Spider(CrawlSpider):
-    name = 'csirtg.io'
+    name = '007_csirtg.io'
     start_urls = [
         'https://csirtg.io/api/users/csirtgadgets/feeds/uce-ip',
         'https://csirtg.io/api/users/csirtgadgets/feeds/uce-urls',

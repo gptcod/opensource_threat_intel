@@ -11,7 +11,7 @@ DPATH = '../data_bak/abuse_sh'
 
 
 class Spider(CrawlSpider):
-    name = 'abuse.sh'
+    name = '001_abuse.sh'
 
     allowed_domains = [
         "abuse.sh"

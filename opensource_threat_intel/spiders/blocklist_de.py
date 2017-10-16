@@ -12,7 +12,7 @@ DPATH = '../data_bak/blocklist_de'
 
 
 class Spider(CrawlSpider):
-    name = 'blocklist.de'
+    name = '005_blocklist.de'
 
     start_urls = [
         'https://lists.blocklist.de/lists/',

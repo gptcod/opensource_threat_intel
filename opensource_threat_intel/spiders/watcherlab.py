@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-#-*- coding: utf-8 -*-   
+#-*- coding: utf-8 -*-
 # Created by manue1 on 2017/7/14
 import csv
 import os
@@ -14,12 +14,12 @@ from ..items import OpensourceThreatIntelItem
 DPATH = '../data_bak/watcherlab/'
 
 class Spider(CrawlSpider):
-    name = 'watcherlab.com'
+    name = '022_watcherlab.com'
 
     start_urls = [
         'http://feed.watcherlab.com/',
     ]
-    
+
     # item数据格式规范
     @staticmethod
     def format_data(line):
@@ -36,7 +36,7 @@ class Spider(CrawlSpider):
         item['updated_time'] = line.split(',')[2].replace(' ','T')
         item['created_time'] = now_time
         return item
-        
+
     def parse_start_url(self, response):
         download_url = ["http://feed.watcherlab.com/watcherlab-%s.tgz" % time.strftime('%Y-%m-%d', time.localtime(time.time()-24*60*60))]
         url = download_url[0]
@@ -50,7 +50,7 @@ class Spider(CrawlSpider):
         bak_file = '%s%s/%s' % (DPATH, time.strftime('%Y-%m-%d', time.localtime(time.time())), filename)
         # 当天下载操作
         if not os.path.exists(bak_file):
-            cmd = " wget  -c '%s'  -O %s" % (url, bak_file)      
+            cmd = " wget  -c '%s'  -O %s" % (url, bak_file)
             os.system(cmd)
             print "download success"
         else:
@@ -60,7 +60,7 @@ class Spider(CrawlSpider):
         #解压
         if os.path.exists(bak_file):
             cmd = "tar -zxvf %s -C %s" %(bak_file,bak_dir)
-            os.system(cmd ) 
+            os.system(cmd )
             print "解压成功"
         else:
             pass

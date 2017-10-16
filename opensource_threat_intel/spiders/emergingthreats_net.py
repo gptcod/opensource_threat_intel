@@ -10,7 +10,7 @@ DPATH = '../data_bak/emergingthreat_net'
 
 
 class Spider(CrawlSpider):
-    name = 'emergingthreats.net'
+    name = '012_emergingthreats.net'
 
     start_urls = [
         'https://rules.emergingthreats.net/blockrules',

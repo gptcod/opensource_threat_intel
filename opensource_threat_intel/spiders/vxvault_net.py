@@ -8,7 +8,7 @@ from ..items import OpensourceThreatIntelItem
 
 
 class Spider(CrawlSpider):
-    name = "vxvault.net"
+    name = "021_vxvault.net"
     allowed_domains = ["vxvault.net"]
     start_urls = [
         'http://vxvault.net/URL_List.php',

@@ -33,7 +33,7 @@ class ListFtpRequest(FtpMetaRequest):
 
 
 class MedisumSpider(CrawlSpider):
-    name = 'cyren.com'
+    name = '008_cyren.com'
 
     allowed_domains = [
         "ftp.ctmail.com"

@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-   
+# -*- coding: utf-8 -*-
 # Created by manue1 on 2017/8/7
 
 
@@ -13,13 +13,18 @@ DPATH = '../data_bak/dataplane_org'
 
 
 class Spider(CrawlSpider):
-    name = 'dataplane.org'
+    name = '010_dataplane.org'
     start_urls = [
     "https://dataplane.org/sshclient.txt",
     "https://dataplane.org/sshpwauth.txt",
     "https://dataplane.org/sipquery.txt",
     "https://dataplane.org/sipinvitation.txt",
     "https://dataplane.org/sipregistration.txt",
+
+    "https://dataplane.org/dnsrd.txt",
+    "https://dataplane.org/dnsrd.txt",
+    "https://dataplane.org/dnsversion.txt",
+    "https://dataplane.org/vncrfb.txt",
     ]
     # item数据格式规范
     @staticmethod

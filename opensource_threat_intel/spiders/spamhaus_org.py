@@ -10,7 +10,7 @@ from ..items import OpensourceThreatIntelItem
 
 
 class Spider(CrawlSpider):
-    name = "spamhaus.org"
+    name = "020_spamhaus.org"
     allowed_domains = ["spamhaus.org"]
     start_urls = [
         'http://www.spamhaus.org/drop/drop.txt',

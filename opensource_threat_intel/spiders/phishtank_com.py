@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-   
+# -*- coding: utf-8 -*-
 # Created by manue1 on 2017/9/8
 from scrapy import Selector
 from scrapy.linkextractors import LinkExtractor
@@ -9,14 +9,14 @@ from ..items import OpensourceThreatIntelItem
 import time
 
 class Spider(CrawlSpider):
-    name = 'phishtank_com'
+    name = '018_phishtank_com'
     custom_settings = {
         # "DOWNLOADER_MIDDLEWARES": {
         #     'opensource_threat_intel.middlewares.RandomProxyMiddleware': 1
         # },
-        "DOWNLOAD_DELAY" :0.5
+        "DOWNLOAD_DELAY" :5
 
-    
+
     }
     start_urls = [
         'http://www.phishtank.com/phish_search.php',

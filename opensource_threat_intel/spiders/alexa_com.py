@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-   
+# -*- coding: utf-8 -*-
 # Created by manue1 on 2017/7/14
 import csv
 import os
@@ -14,7 +14,7 @@ DPATH = '../data_bak/alexa_com'
 
 
 class Spider(CrawlSpider):
-    name = 'alexa.com'
+    name = '002_alexa.com'
 
     start_urls = [
         'http://www.alexa.com',

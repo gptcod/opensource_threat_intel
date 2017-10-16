@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-   
+# -*- coding: utf-8 -*-
 # Created by manue1 on 2017/7/20
 import csv
 import os
@@ -14,7 +14,7 @@ DPATH = '../data_bak/cisco_com'
 
 
 class Spider(CrawlSpider):
-    name = 'cisco.com'
+    name = '006_cisco.com'
 
     start_urls = [
         'http://www.cisco.com',
